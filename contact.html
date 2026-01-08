@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Loom & Lane - Get in touch with us through our Colombo head office or branch locations across Sri Lanka.">
+  <meta name="keywords" content="contact, Loom & Lane, Sri Lanka, customer support">
+  <title>Contact Us - Loom & Lane</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/icons/favicon.ico">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="index.html">
+        <img src="../assets/icons/raphael-ai.jpeg" 
+             alt="Loom & Lane" 
+             class="logo-img"
+             style="height: 50px; width: auto; max-width: 200px; object-fit: contain;">
+        <span class="logo-text ms-2">Loom</span>
+        <span class="logo-ampersand">&</span>
+        <span class="logo-text">Lane</span>
+      </a>
+
+      <!-- Mobile Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Main Navigation Links -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="shop.html">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="contact.html">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right Side: Search, Dark Mode, Cart -->
+        <div class="d-flex align-items-center gap-3">
+          <!-- Search Icon (Click to Open Modal) -->
+          <button class="search-trigger-btn" id="searchTrigger" aria-label="Open search">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+
+          <!-- Dark Mode Toggle -->
+          <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <!-- Cart Icon with Badge -->
+          <a href="cart.html" class="cart-icon" aria-label="Shopping cart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+              <path d="M3 6h18"></path>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="cart-badge"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="section pt-5 pb-4" style="background: linear-gradient(135deg, var(--color-primary) 0%, #1a252f 100%);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center text-light">
+          <h1 class="display-4 mb-3" style="color: #ffffff !important;">Get In Touch</h1>
+          <p class="lead" style="color: #ffffff !important;">
+            We'd love to hear from you. Whether you have questions about our products, need assistance, or want to share feedback, our team is here to help.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row g-4">
+        
+        <!-- Left Column - Contact Information -->
+        <div class="col-lg-5">
+          <div class="card border-0" style="background: #2C3E50; border-radius: 1rem; padding: 2rem;">
+            
+            <!-- Head Office -->
+            <div class="mb-4">
+              <h3 class="h4 mb-4 text-white">Head Office</h3>
+              
+              <div class="d-flex align-items-start mb-3">
+                <i class="bi bi-geo-alt-fill text-warning me-3" style="font-size: 1.5rem;"></i>
+                <div>
+                  <h6 class="text-white mb-1">Address</h6>
+                  <p class="text-white-50 mb-0">No. 127, Galle Road<br>Colombo 03, Sri Lanka</p>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start mb-3">
+                <i class="bi bi-telephone-fill text-warning me-3" style="font-size: 1.5rem;"></i>
+                <div>
+                  <h6 class="text-white mb-1">Phone</h6>
+                  <p class="text-white-50 mb-0">+94 11 234 5678</p>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start mb-3">
+                <i class="bi bi-envelope-fill text-warning me-3" style="font-size: 1.5rem;"></i>
+                <div>
+                  <h6 class="text-white mb-1">Email</h6>
+                  <p class="text-white-50 mb-0">hello@loomlane.lk</p>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start">
+                <i class="bi bi-clock-fill text-warning me-3" style="font-size: 1.5rem;"></i>
+                <div>
+                  <h6 class="text-white mb-1">Business Hours</h6>
+                  <p class="text-white-50 mb-0">Mon - Sat: 9:00 AM - 7:00 PM<br>Sunday: 10:00 AM - 5:00 PM</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Branch Locations -->
+            <div class="mb-4">
+              <h3 class="h5 mb-3 text-white">Branch Locations</h3>
+              <div class="text-white-50">
+                <p class="mb-2"><i class="bi bi-geo-alt me-2 text-warning"></i>Colombo • Galle • Kandy</p>
+                <p class="mb-0"><i class="bi bi-geo-alt me-2 text-warning"></i>Kalutara • Anuradhapura</p>
+              </div>
+            </div>
+
+            <!-- Social Media -->
+            <div>
+              <h3 class="h6 mb-3 text-white">Follow Us</h3>
+              <div class="d-flex gap-2">
+                <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-pinterest"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Contact Form -->
+        <div class="col-lg-7">
+          <div class="card border-0 shadow-lg" style="border-radius: 1rem;">
+            <div class="card-body p-4 p-lg-5">
+              <h3 class="h4 mb-4">Send Us a Message</h3>
+              
+              <form id="contactForm">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Your Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="name" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Your Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="subject" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-3">
+                  <i class="bi bi-send me-2"></i>Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="h3 mb-4 text-center" style="color: var(--text-primary);">Find Us</h2>
+          
+          <!-- Google Map Placeholder -->
+          <div class="map-container shadow-sm rounded overflow-hidden" style="height: 450px; background: #e9ecef;">
+            <!-- Placeholder Image -->
+            <img 
+              src="https://placehold.co/1200x450/2C3E50/D4AF37?text=Loom+%26+Lane+Head+Office+%7C+No.+127%2C+Galle+Road%2C+Colombo+03" 
+              alt="Loom & Lane Head Office Location Map" 
+              class="img-fluid w-100 h-100" 
+              style="object-fit: cover;">
+            
+            <!-- Alternative: Google Maps iframe (uncomment to use real map) -->
+            <!--
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.798464841424!2d79.85058931477493!3d6.914693594990163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTQnNTIuOSJOIDc5wrA1MScxMi4wIkU!5e0!3m2!1sen!2slk!4v1234567890123!5m2!1sen!2slk" 
+              width="100%" 
+              height="450" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            -->
+          </div>
+
+          <div class="text-center mt-3">
+            <a href="https://www.google.com/maps/search/127+Galle+Road+Colombo+03" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-outline-secondary">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="me-2" style="vertical-align: middle;">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+              </svg>
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light pt-5 pb-3 mt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Brand & Description -->
+        <div class="col-lg-4 col-md-6 mb-4 text-center">
+          <h3 class="mb-3" style="font-family: var(--font-heading); color: var(--color-secondary);">Loom & Lane</h3>
+          <p class="text-light" style="opacity: 0.8;">
+            Authentic Sri Lankan craftsmanship and artistry. Bringing the heritage of Ceylon to your home with handcrafted treasures.
+          </p>
+          <!-- Social Media Icons -->
+          <div class="d-flex gap-3 mt-3 justify-content-center">
+            <a href="#" class="text-light" aria-label="Facebook" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Instagram" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Twitter" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Pinterest" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6 mb-4 text-center">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="index.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Home</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Shop</a>
+            </li>
+            <li class="mb-2">
+              <a href="about.html" class="text-light" style="opacity: 0.8; text-decoration: none;">About Us</a>
+            </li>
+            <li class="mb-2">
+              <a href="cart.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Cart</a>
+            </li>
+            <li class="mb-2">
+              <a href="contact.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="col-lg-3 col-md-6 mb-4 text-center">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Categories</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="shop.html?category=home-decor" class="text-light" style="opacity: 0.8; text-decoration: none;">Home Decor</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=wooden-crafts" class="text-light" style="opacity: 0.8; text-decoration: none;">Wooden Crafts</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=porcelain" class="text-light" style="opacity: 0.8; text-decoration: none;">Porcelain</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=flower-arrangements" class="text-light" style="opacity: 0.8; text-decoration: none;">Flower Arrangements</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=accessories" class="text-light" style="opacity: 0.8; text-decoration: none;">Accessories</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="col-lg-3 col-md-6 mb-4 text-center">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Contact Us</h5>
+          <ul class="list-unstyled text-light" style="opacity: 0.8;">
+            <li class="mb-2">
+              <strong>Address:</strong><br>
+              No. 127, Galle Road<br>
+              Colombo 03, Sri Lanka
+            </li>
+            <li class="mb-2">
+              <strong>Phone:</strong><br>
+              +94 11 234 5678
+            </li>
+            <li class="mb-2">
+              <strong>Email:</strong><br>
+              hello@loomlane.lk
+            </li>
+            <li class="mb-2">
+              <strong>Hours:</strong><br>
+              Mon - Sat: 9:00 AM - 7:00 PM<br>
+              Sunday: 10:00 AM - 5:00 PM
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Bar -->
+      <hr class="my-4" style="border-color: rgba(212, 175, 55, 0.3);">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+          <p class="mb-0 text-light" style="opacity: 0.7;">
+            &copy; 2026 Loom & Lane. All rights reserved.
+          </p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <a href="#" class="text-light me-3" style="opacity: 0.7; text-decoration: none;">Privacy Policy</a>
+          <a href="#" class="text-light me-3" style="opacity: 0.7; text-decoration: none;">Terms of Service</a>
+          <a href="#" class="text-light" style="opacity: 0.7; text-decoration: none;">Shipping Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  
+  <!-- Main App JS -->
+  <script src="js/app.js" defer></script>
+
+  <!-- Contact Form Handler -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contactForm');
+      const successMessage = document.getElementById('successMessage');
+
+      // Form validation and submission
+      contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Check form validity
+        if (!contactForm.checkValidity()) {
+          event.stopPropagation();
+          contactForm.classList.add('was-validated');
+          return;
+        }
+
+        // Get form data
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          subject: document.getElementById('subject').value,
+          message: document.getElementById('message').value
+        };
+
+        // Log form data (in a real application, this would be sent to a server)
+        console.log('Contact form submitted:', formData);
+
+        // Show success message
+        successMessage.style.display = 'block';
+
+        // Reset form
+        contactForm.reset();
+        contactForm.classList.remove('was-validated');
+
+        // Hide success message after 5 seconds
+        setTimeout(function() {
+          successMessage.style.display = 'none';
+        }, 5000);
+
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      // Real-time validation feedback
+      const inputs = contactForm.querySelectorAll('input, textarea');
+      inputs.forEach(function(input) {
+        input.addEventListener('blur', function() {
+          if (input.value.trim() !== '') {
+            if (input.checkValidity()) {
+              input.classList.remove('is-invalid');
+              input.classList.add('is-valid');
+            } else {
+              input.classList.remove('is-valid');
+              input.classList.add('is-invalid');
+            }
+          }
+        });
+
+        input.addEventListener('input', function() {
+          if (input.classList.contains('is-invalid') || input.classList.contains('is-valid')) {
+            if (input.checkValidity()) {
+              input.classList.remove('is-invalid');
+              input.classList.add('is-valid');
+            } else {
+              input.classList.remove('is-valid');
+              input.classList.add('is-invalid');
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Search Modal Overlay -->
+  <div class="search-modal" id="searchModal">
+    <div class="search-modal-backdrop" id="searchModalBackdrop"></div>
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <div class="search-input-container">
+          <svg class="search-modal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="search" id="searchModalInput" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+          <button class="search-modal-close" id="searchModalClose" aria-label="Close search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="search-modal-body" id="searchModalResults">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+

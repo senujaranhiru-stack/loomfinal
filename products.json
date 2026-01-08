@@ -1,0 +1,139 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Cinnamon Wood Elephant",
+      "category": "Wooden Crafts",
+      "price": 8500,
+      "description": "Handcarved from authentic Ceylon cinnamon wood, this majestic elephant sculpture embodies Sri Lankan heritage. Each piece features intricate detailing that celebrates traditional craftsmanship passed down through generations.",
+      "image": "../assets/images/product/web1.jfif",
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "name": "Royal Blue Porcelain Vase",
+      "category": "Porcelain",
+      "price": 12500,
+      "description": "A stunning porcelain vase adorned with hand-painted sapphire motifs inspired by Sri Lanka's precious gemstones. This elegant centerpiece brings timeless sophistication to any interior space.",
+      "image": "../assets/images/product/web2.jfif",
+      "rating": 4.9
+    },
+    {
+      "id": 3,
+      "name": "Lotus Bloom Arrangement",
+      "category": "Flower Arrangements",
+      "price": 6500,
+      "description": "An exquisite arrangement featuring fresh lotus flowers and tropical foliage native to Sri Lankan waterways. This serene composition brings natural elegance and cultural symbolism to your home.",
+      "image": "../assets/images/product/web3.jfif",
+      "rating": 4.7
+    },
+    {
+      "id": 4,
+      "name": "Teak Wood Wall Panel",
+      "category": "Home Decor",
+      "price": 18500,
+      "description": "A magnificent carved teak panel featuring traditional Kandyan era motifs and geometric patterns. This statement piece transforms any wall into a gallery of Sri Lankan artistic heritage.",
+      "image": "../assets/images/product/web4.jfif",
+      "rating": 5.0
+    },
+    {
+      "id": 5,
+      "name": "Handwoven Palmyra Basket",
+      "category": "Accessories",
+      "price": 3500,
+      "description": "Expertly woven from sustainable palmyra palm fibers by skilled artisans from the Northern Province. This versatile basket combines functionality with rustic charm for modern living.",
+      "image": "../assets/images/product/web5.jfif",
+      "rating": 4.6
+    },
+    {
+      "id": 6,
+      "name": "Ceylon Tea Ceremony Set",
+      "category": "Porcelain",
+      "price": 22500,
+      "description": "An elegant six-piece porcelain tea set featuring delicate gold leaf accents and tea plantation illustrations. Perfect for hosting authentic Ceylon tea experiences with refined grace.",
+      "image": "/assets/images/product/web.jfif",
+      "rating": 4.9
+    },
+    {
+      "id": 7,
+      "name": "Moonstone Terrace Lamp",
+      "category": "Home Decor",
+      "price": 15500,
+      "description": "Inspired by ancient moonstone carvings found in Anuradhapura, this brass lamp casts enchanting patterns. Its intricate perforations create a mesmerizing play of light and shadow.",
+      "image": "../assets/images/product/web7.jfif",
+      "rating": 4.8
+    },
+    {
+      "id": 8,
+      "name": "Sandalwood Prayer Box",
+      "category": "Wooden Crafts",
+      "price": 7500,
+      "description": "A miniature treasure chest carved from fragrant sandalwood with brass inlay work. This sacred keepsake box brings tranquility and traditional elegance to your personal altar or dresser.",
+      "image": "../assets/images/product/web8.jfif",
+      "rating": 4.7
+    },
+    {
+      "id": 9,
+      "name": "Frangipani Silk Arrangement",
+      "category": "Flower Arrangements",
+      "price": 5500,
+      "description": "Premium silk frangipani blooms artfully arranged with natural dried palm leaves and river stones. This maintenance-free arrangement captures the eternal beauty of tropical Sri Lankan gardens.",
+      "image": "../assets/images/product/web9.jfif",
+      "rating": 4.5
+    },
+    {
+      "id": 10,
+      "name": "Handloom Cotton Table Runner",
+      "category": "Accessories",
+      "price": 4200,
+      "description": "Woven on traditional handlooms using organic cotton threads and natural dyes from indigenous plants. This elegant runner showcases centuries-old textile techniques in contemporary design.",
+      "image": "../assets/images/product/web11.jfif",
+      "rating": 4.6
+    },
+    {
+      "id": 11,
+      "name": "Ebony Meditation Buddha",
+      "category": "Wooden Crafts",
+      "price": 25500,
+      "description": "Masterfully sculpted from rare ebony wood, this serene Buddha statue radiates peace and contemplation. Each curve and expression reflects the devotion of master artisans trained in temple arts.",
+      "image": "../assets/images/product/web12.jfif",
+      "rating": 5.0
+    },
+    {
+      "id": 12,
+      "name": "Colonial Era Chandelier",
+      "category": "Home Decor",
+      "price": 45000,
+      "description": "A breathtaking brass chandelier inspired by Dutch colonial architecture with hand-blown glass shades. This statement lighting piece brings historical grandeur and warm ambiance to elegant interiors.",
+      "image": "../assets/images/product/web13.jfif",
+      "rating": 4.9
+    },
+    {
+      "id": 13,
+      "name": "Celadon Serving Platter",
+      "category": "Porcelain",
+      "price": 9500,
+      "description": "A stunning celadon-glazed platter with subtle crackle finish and botanical engravings. This artisanal piece elevates every dining experience with its understated elegance and timeless appeal.",
+      "image": "../assets/images/product/web14.jfif",
+      "rating": 4.7
+    },
+    {
+      "id": 14,
+      "name": "Coconut Shell Wall Hanging",
+      "category": "Wooden Crafts",
+      "price": 2500,
+      "description": "An eco-friendly wall art piece crafted from polished coconut shells arranged in geometric patterns. This sustainable decor celebrates Sri Lankan ingenuity in transforming natural materials into contemporary art.",
+      "image": "../assets/images/product/web15.jfif",
+      "rating": 4.4
+    },
+    {
+      "id": 15,
+      "name": "Batik Silk Cushion Cover",
+      "category": "Accessories",
+      "price": 3800,
+      "description": "Hand-dyed using traditional batik techniques with vibrant peacock and floral motifs on pure silk. This luxurious cushion cover adds a splash of Sri Lankan artistry to any living space.",
+      "image": "../assets/images/product/web2.jfif",
+      "rating": 4.8
+    }
+  ]
+}

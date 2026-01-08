@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse authentic Sri Lankan handcrafted products. Filter by category and price. Exclusive wooden crafts, porcelain, home decor, and accessories from Ceylon artisans.">
+  <meta name="keywords" content="Sri Lankan products, handcrafted, wooden crafts, porcelain, home decor, artisan accessories, Ceylon">
+  <meta name="author" content="Loom & Lane">
+  <meta name="theme-color" content="#1a6b4f">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://loomlane.lk/shop.html">
+  <meta property="og:title" content="Shop - Loom & Lane">
+  <meta property="og:description" content="Explore our curated collection of Sri Lankan handcrafted products with fast shipping.">
+  <meta property="og:image" content="https://loomlane.lk/assets/og-shop.jpg">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://loomlane.lk/shop.html">
+  <meta property="twitter:title" content="Shop - Loom & Lane">
+  <meta property="twitter:description" content="Explore Sri Lankan handcrafted products.">
+  <meta property="twitter:image" content="https://loomlane.lk/assets/og-shop.jpg">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://loomlane.lk/shop.html">
+  
+  <!-- Preconnect to CDNs -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  
+  <title>Shop All Products - Loom & Lane</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/icons/favicon.ico">
+
+  <style>
+    /* Additional styles for filters */
+    .filter-sidebar {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+    }
+
+    .filter-section {
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .filter-section:last-child {
+      border-bottom: none;
+    }
+
+    .filter-section h5 {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .form-check {
+      margin-bottom: 0.4rem;
+    }
+
+    .form-check-label {
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.9rem;
+    }
+
+    .price-range-display {
+      font-weight: bold;
+      color: var(--color-secondary);
+    }
+
+    /* Dual Range Slider Styles */
+    .dual-range-slider input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .dual-range-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      cursor: pointer;
+      border: 2px solid var(--bg-color);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 3;
+    }
+
+    .dual-range-slider input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      cursor: pointer;
+      border: 2px solid var(--bg-color);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 3;
+    }
+
+    .dual-range-slider input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 3px 8px rgba(212, 175, 55, 0.5);
+    }
+
+    .dual-range-slider input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 3px 8px rgba(212, 175, 55, 0.5);
+    }
+
+    .dual-range-slider input[type="range"]:focus {
+      outline: none;
+    }
+
+    .slider-range {
+      transition: left 0.1s ease, right 0.1s ease;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+    }
+
+    .results-count {
+      color: var(--text-secondary);
+    }
+
+    .filter-toggle-btn {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      .filter-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--bg-card);
+        z-index: 1050;
+        transition: left 0.3s ease;
+        padding: var(--spacing-lg);
+        box-shadow: var(--shadow-xl);
+        overflow-y: auto;
+      }
+
+      .filter-sidebar.show {
+        left: 0;
+      }
+
+      .filter-toggle-btn {
+        display: inline-block;
+      }
+
+      .filter-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+      }
+
+      .filter-backdrop.show {
+        display: block;
+      }
+    }
+
+    .close-filters {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      .close-filters {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-primary);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="index.html">
+        <img src="../assets/icons/raphael-ai.jpeg" 
+             alt="Loom & Lane" 
+             class="logo-img"
+             style="height: 50px; width: auto; max-width: 200px; object-fit: contain;">
+        <span class="logo-text ms-2">Loom</span>
+        <span class="logo-ampersand">&</span>
+        <span class="logo-text">Lane</span>
+      </a>
+
+      <!-- Mobile Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Main Navigation Links -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="shop.html">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right Side: Search, Dark Mode, Cart -->
+        <div class="d-flex align-items-center gap-3">
+          <!-- Search Icon (Click to Open Modal) -->
+          <button class="search-trigger-btn" id="searchTrigger" aria-label="Open search">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+
+          <!-- Dark Mode Toggle -->
+          <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <!-- Cart Icon with Badge -->
+          <a href="cart.html" class="cart-icon" aria-label="Shopping cart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+              <path d="M3 6h18"></path>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="cart-badge"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="bg-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="mb-2">Shop All Products</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Shop</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Backdrop (Mobile) -->
+  <div class="filter-backdrop" id="filterBackdrop"></div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div class="row">
+        
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3">
+          <aside class="filter-sidebar" id="filterSidebar">
+            
+            <!-- Close Button (Mobile) -->
+            <button class="close-filters" id="closeFilters" aria-label="Close filters">×</button>
+
+            <h4 class="mb-3">Filters</h4>
+
+            <!-- Category Filter -->
+            <div class="filter-section">
+              <h5>Category</h5>
+              <div id="categoryFilters">
+                <div class="form-check mb-2">
+                  <input class="form-check-input category-filter" type="checkbox" value="all" id="cat-all" checked>
+                  <label class="form-check-label" for="cat-all">
+                    All Categories
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input category-filter" type="checkbox" value="Home Decor" id="cat-home-decor">
+                  <label class="form-check-label" for="cat-home-decor">
+                    Home Decor
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input category-filter" type="checkbox" value="Wooden Crafts" id="cat-wooden-crafts">
+                  <label class="form-check-label" for="cat-wooden-crafts">
+                    Wooden Crafts
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input category-filter" type="checkbox" value="Porcelain" id="cat-porcelain">
+                  <label class="form-check-label" for="cat-porcelain">
+                    Porcelain
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input category-filter" type="checkbox" value="Flower Arrangements" id="cat-flower">
+                  <label class="form-check-label" for="cat-flower">
+                    Flower Arrangements
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input category-filter" type="checkbox" value="Accessories" id="cat-accessories">
+                  <label class="form-check-label" for="cat-accessories">
+                    Accessories
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div class="filter-section">
+              <h5>Price Range</h5>
+              <div class="mb-3">
+                <div class="form-check mb-2">
+                  <input class="form-check-input price-range-filter" type="radio" name="priceRange" value="0-50000" id="price-all" checked>
+                  <label class="form-check-label" for="price-all">
+                    All Prices
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input price-range-filter" type="radio" name="priceRange" value="0-5000" id="price-1">
+                  <label class="form-check-label" for="price-1">
+                    Under LKR 5,000
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input price-range-filter" type="radio" name="priceRange" value="5000-10000" id="price-2">
+                  <label class="form-check-label" for="price-2">
+                    LKR 5,000 - 10,000
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input price-range-filter" type="radio" name="priceRange" value="10000-20000" id="price-3">
+                  <label class="form-check-label" for="price-3">
+                    LKR 10,000 - 20,000
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input price-range-filter" type="radio" name="priceRange" value="20000-50000" id="price-4">
+                  <label class="form-check-label" for="price-4">
+                    LKR 20,000+
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <div class="filter-section">
+              <button class="btn btn-outline w-100 btn-sm" id="clearFilters">
+                Clear Filters
+              </button>
+            </div>
+
+          </aside>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="col-lg-9">
+          
+          <!-- Results Header with Sorting -->
+          <div class="results-header">
+            <div>
+              <button class="btn btn-secondary filter-toggle-btn" id="filterToggle">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                Filters
+              </button>
+              <span class="results-count text-white" id="resultsCount">Loading products...</span>
+            </div>
+            
+            <div class="d-flex align-items-center gap-2">
+              <label for="sortBy" class="mb-0 text-white">Sort by:</label>
+              <select class="form-select" id="sortBy" style="width: auto;">
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name-az">Name: A to Z</option>
+                <option value="name-za">Name: Z to A</option>
+                <option value="rating">Highest Rated</option>
+                <option value="newest">Newest First</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Grid Container -->
+          <div class="row row-cols-1 row-cols-sm-2 g-3" id="product-grid">
+            <!-- Products will be dynamically loaded here -->
+            <div class="col-12 text-center py-5">
+              <div class="spinner mx-auto"></div>
+              <p class="mt-3 text-secondary">Loading products...</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light pt-5 pb-3 mt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Brand & Description -->
+        <div class="col-lg-4 col-md-6 mb-4 text-center">
+          <h3 class="mb-3" style="font-family: var(--font-heading); color: var(--color-secondary);">Loom & Lane</h3>
+          <p class="text-light" style="opacity: 0.8;">
+            Authentic Sri Lankan craftsmanship and artistry. Bringing the heritage of Ceylon to your home with handcrafted treasures.
+          </p>
+          <!-- Social Media Icons -->
+          <div class="d-flex gap-3 mt-3 justify-content-center">
+            <a href="#" class="text-light" aria-label="Facebook" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Instagram" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Twitter" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Pinterest" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6 mb-4 text-center">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="index.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Home</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Shop</a>
+            </li>
+            <li class="mb-2">
+              <a href="about.html" class="text-light" style="opacity: 0.8; text-decoration: none;">About Us</a>
+            </li>
+            <li class="mb-2">
+              <a href="cart.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Cart</a>
+            </li>
+            <li class="mb-2">
+              <a href="contact.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="col-lg-3 col-md-6 mb-4 text-center">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Categories</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="shop.html?category=home-decor" class="text-light" style="opacity: 0.8; text-decoration: none;">Home Decor</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=wooden-crafts" class="text-light" style="opacity: 0.8; text-decoration: none;">Wooden Crafts</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=porcelain" class="text-light" style="opacity: 0.8; text-decoration: none;">Porcelain</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=flower-arrangements" class="text-light" style="opacity: 0.8; text-decoration: none;">Flower Arrangements</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=accessories" class="text-light" style="opacity: 0.8; text-decoration: none;">Accessories</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="col-lg-3 col-md-6 mb-4 text-center">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Contact Us</h5>
+          <ul class="list-unstyled text-light" style="opacity: 0.8;">
+            <li class="mb-2">
+              <strong>Address:</strong><br>
+              No. 127, Galle Road<br>
+              Colombo 03, Sri Lanka
+            </li>
+            <li class="mb-2">
+              <strong>Phone:</strong><br>
+              +94 11 234 5678
+            </li>
+            <li class="mb-2">
+              <strong>Email:</strong><br>
+              info@loomandlane.lk
+            </li>
+            <li class="mb-2">
+              <strong>Hours:</strong><br>
+              Mon - Sat: 9:00 AM - 7:00 PM<br>
+              Sunday: 10:00 AM - 5:00 PM
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Bar -->
+      <hr class="my-4" style="border-color: rgba(212, 175, 55, 0.3);">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+          <p class="mb-0 text-light" style="opacity: 0.7;">
+            &copy; 2026 Loom & Lane. All rights reserved.
+          </p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <a href="#" class="text-light me-3" style="opacity: 0.7; text-decoration: none;">Privacy Policy</a>
+          <a href="#" class="text-light me-3" style="opacity: 0.7; text-decoration: none;">Terms of Service</a>
+          <a href="#" class="text-light" style="opacity: 0.7; text-decoration: none;">Shipping Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  
+  <!-- Core App JS -->
+  <script src="js/app.js"></script>
+
+  <!-- Page-Specific Script: Products Grid with Filters and Sorting -->
+  <script>
+    /**
+     * Products Page Manager
+     * Handles product display, filtering, and sorting
+     */
+    const ProductsPage = {
+      allProducts: [],
+      filteredProducts: [],
+      selectedCategories: new Set(['all']),
+      priceMin: 0,
+      priceMax: 50000,
+      currentSort: 'default',
+      searchQuery: '',
+
+      /**
+       * Initialize the products page
+       */
+      async init() {
+        try {
+          // Fetch all products
+          this.allProducts = await fetchProducts();
+          this.filteredProducts = [...this.allProducts];
+
+          // Set up event listeners
+          this.setupEventListeners();
+
+          // Check for search query in URL parameters
+          const urlParams = new URLSearchParams(window.location.search);
+          const searchQuery = urlParams.get('search');
+          
+          if (searchQuery) {
+            // Set the search input value
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+              searchInput.value = searchQuery;
+              this.searchQuery = searchQuery;
+            }
+          }
+
+          // Initial render (with search query if present)
+          this.applyFiltersAndSort();
+
+        } catch (error) {
+          console.error('Error initializing products page:', error);
+          this.showError();
+        }
+      },
+
+      /**
+       * Set up all event listeners
+       */
+      setupEventListeners() {
+        // Category filters
+        const categoryCheckboxes = document.querySelectorAll('.category-filter');
+        console.log('Found', categoryCheckboxes.length, 'category checkboxes');
+        categoryCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', (e) => this.handleCategoryChange(e));
+        });
+
+        // Price range radio buttons
+        const priceRadios = document.querySelectorAll('.price-range-filter');
+        priceRadios.forEach(radio => {
+          radio.addEventListener('change', (e) => this.handlePriceRangeChange(e));
+        });
+
+        // Sort dropdown
+        const sortBy = document.getElementById('sortBy');
+        sortBy.addEventListener('change', (e) => {
+          this.currentSort = e.target.value;
+          this.applyFiltersAndSort();
+        });
+
+        // Note: Search event listeners are now handled by initializeSearch() in app.js
+        // This prevents duplicate listeners and enables cross-page functionality
+
+        // Clear filters
+        const clearBtn = document.getElementById('clearFilters');
+        clearBtn.addEventListener('click', () => this.clearAllFilters());
+
+        // Mobile filter toggle
+        const filterToggle = document.getElementById('filterToggle');
+        const filterSidebar = document.getElementById('filterSidebar');
+        const filterBackdrop = document.getElementById('filterBackdrop');
+        const closeFilters = document.getElementById('closeFilters');
+
+        if (filterToggle) {
+          filterToggle.addEventListener('click', () => {
+            filterSidebar.classList.add('show');
+            filterBackdrop.classList.add('show');
+          });
+        }
+
+        if (closeFilters) {
+          closeFilters.addEventListener('click', () => {
+            filterSidebar.classList.remove('show');
+            filterBackdrop.classList.remove('show');
+          });
+        }
+
+        if (filterBackdrop) {
+          filterBackdrop.addEventListener('click', () => {
+            filterSidebar.classList.remove('show');
+            filterBackdrop.classList.remove('show');
+          });
+        }
+      },
+
+      /**
+       * Handle price range radio button changes
+       */
+      handlePriceRangeChange(event) {
+        const value = event.target.value;
+        const [min, max] = value.split('-').map(Number);
+        
+        this.priceMin = min;
+        this.priceMax = max;
+        
+        this.applyFiltersAndSort();
+      },
+
+      /**
+       * Handle category filter changes
+       */
+      handleCategoryChange(event) {
+        const checkboxes = document.querySelectorAll('.category-filter');
+        const allCheckbox = document.getElementById('cat-all');
+        const clickedCheckbox = event.target;
+        
+        // CASE 1: "All" checkbox was clicked
+        if (clickedCheckbox === allCheckbox) {
+          if (allCheckbox.checked) {
+            // Select All - uncheck all others
+            this.selectedCategories.clear();
+            this.selectedCategories.add('all');
+            checkboxes.forEach(cb => {
+              if (cb.value !== 'all') cb.checked = false;
+            });
+          }
+          this.applyFiltersAndSort();
+          return;
+        }
+        
+        // CASE 2: A specific category was clicked
+        // Uncheck "All" when any specific category is checked
+        if (clickedCheckbox.checked) {
+          allCheckbox.checked = false;
+        }
+        
+        // Collect all checked categories (excluding "all")
+        this.selectedCategories.clear();
+        checkboxes.forEach(cb => {
+          if (cb.checked && cb.value !== 'all') {
+            this.selectedCategories.add(cb.value);
+          }
+        });
+
+        // CASE 3: No categories selected - default back to "All"
+        if (this.selectedCategories.size === 0) {
+          this.selectedCategories.clear();
+          this.selectedCategories.add('all');
+          allCheckbox.checked = true;
+        }
+
+        this.applyFiltersAndSort();
+      },
+
+      /**
+       * Apply all filters and sorting
+       */
+      applyFiltersAndSort() {
+        let products = [...this.allProducts];
+
+        // Apply category filter
+        if (!this.selectedCategories.has('all')) {
+          products = products.filter(p => this.selectedCategories.has(p.category));
+        }
+
+        // Apply price filter
+        products = products.filter(p => p.price >= this.priceMin && p.price <= this.priceMax);
+
+        // Apply search filter
+        if (this.searchQuery.trim()) {
+          const query = this.searchQuery.toLowerCase();
+          products = products.filter(p =>
+            p.name.toLowerCase().includes(query) ||
+            p.description.toLowerCase().includes(query) ||
+            p.category.toLowerCase().includes(query)
+          );
+        }
+
+        // Apply sorting
+        products = this.sortProducts(products, this.currentSort);
+
+        this.filteredProducts = products;
+        this.renderProducts();
+      },
+
+      /**
+       * Public method for external search filtering (called from app.js)
+       * @param {string} query - Search query string
+       */
+      filterBySearch(query) {
+        this.searchQuery = query || '';
+        this.applyFiltersAndSort();
+      },
+
+      /**
+       * Sort products based on criteria
+       */
+      sortProducts(products, sortBy) {
+        const sorted = [...products];
+
+        switch (sortBy) {
+          case 'price-low':
+            return sorted.sort((a, b) => a.price - b.price);
+          
+          case 'price-high':
+            return sorted.sort((a, b) => b.price - a.price);
+          
+          case 'name-az':
+            return sorted.sort((a, b) => a.name.localeCompare(b.name));
+          
+          case 'name-za':
+            return sorted.sort((a, b) => b.name.localeCompare(a.name));
+          
+          case 'rating':
+            return sorted.sort((a, b) => b.rating - a.rating);
+          
+          case 'newest':
+            return sorted.sort((a, b) => b.id - a.id);
+          
+          default:
+            return sorted;
+        }
+      },
+
+      /**
+       * Render products to the grid
+       */
+      renderProducts() {
+        const container = document.getElementById('product-grid');
+        const resultsCount = document.getElementById('resultsCount');
+
+        if (!container) return;
+
+        // Update results count
+        const count = this.filteredProducts.length;
+        resultsCount.textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+
+        // Clear container
+        container.innerHTML = '';
+
+        // Check if we have products
+        if (count === 0) {
+          this.renderNoResults();
+          return;
+        }
+
+        // Render products
+        this.filteredProducts.forEach(product => {
+          const col = document.createElement('div');
+          col.className = 'col-lg-4 col-md-6 col-sm-6 mb-4';
+          
+          col.innerHTML = `
+            <div class="product-card">
+              <div style="position: relative;">
+                <img src="${product.image}" alt="${product.name}" class="product-card-img">
+                <div class="product-card-overlay">
+                  <div class="product-card-overlay-icon">
+                    <i class="bi bi-eye"></i>
+                  </div>
+                  <span class="product-card-overlay-text">Quick View</span>
+                </div>
+              </div>
+              <div class="product-card-body">
+                <div>
+                  <div class="product-card-category">${product.category}</div>
+                  <h3 class="product-card-title">${product.name}</h3>
+                  <p class="text-secondary" style="font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.5rem;">
+                    ${product.description.substring(0, 80)}...
+                  </p>
+                  <div class="product-card-price">${formatCurrency(product.price)}</div>
+                  <div class="product-card-rating">
+                    <span>⭐ ${product.rating}</span>
+                  </div>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                  <a href="product-details.html?id=${product.id}" class="btn btn-outline-secondary">
+                    <i class="bi bi-eye"></i> View Details
+                  </a>
+                  <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          container.appendChild(col);
+        });
+      },
+
+      /**
+       * Render no results message
+       */
+      renderNoResults() {
+        const container = document.getElementById('product-grid');
+        container.innerHTML = `
+          <div class="col-12">
+            <div class="no-results-container">
+              <div class="no-results-icon">🔍</div>
+              <h2 class="no-results-title">No Products Found</h2>
+              <p class="no-results-text">
+                We couldn't find any products matching your search criteria. Try adjusting your filters or search terms.
+              </p>
+              <p class="no-results-suggestions">
+                💡 Tip: Try removing some filters or searching for a broader category.
+              </p>
+              <button class="clear-filters-btn" id="clearFiltersBtn">
+                Clear All Filters
+              </button>
+            </div>
+          </div>
+        `;
+        
+        // Add event listener for clear filters button
+        document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+          this.clearAllFilters();
+        });
+      },
+
+      /**
+       * Clear all filters
+       */
+      clearAllFilters() {
+        // Reset categories
+        this.selectedCategories.clear();
+        this.selectedCategories.add('all');
+        
+        const checkboxes = document.querySelectorAll('.category-filter');
+        checkboxes.forEach(cb => {
+          cb.checked = cb.value === 'all';
+        });
+
+        // Reset price range
+        this.priceMin = 0;
+        this.priceMax = 50000;
+        
+        // Reset price range radio buttons
+        const priceAllRadio = document.getElementById('price-all');
+        if (priceAllRadio) {
+          priceAllRadio.checked = true;
+        }
+
+        // Reset search
+        this.searchQuery = '';
+        document.getElementById('searchInput').value = '';
+
+        // Reset sort
+        this.currentSort = 'default';
+        document.getElementById('sortBy').value = 'default';
+
+        // Re-render
+        this.applyFiltersAndSort();
+
+        showToast('All filters cleared', 'info');
+      },
+
+      /**
+       * Show error message
+       */
+      showError() {
+        const container = document.getElementById('product-grid');
+        if (container) {
+          container.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <p class="text-danger">Failed to load products. Please refresh the page.</p>
+            </div>
+          `;
+        }
+      }
+    };
+
+    // Expose ProductsPage globally for app.js to access
+    window.ProductsPage = ProductsPage;
+
+    // Initialize products page when loaded
+    ProductsPage.init();
+  </script>
+
+  <!-- Floating Chat Widget -->
+  <div id="chatWidget" class="chat-widget">
+    <button class="chat-toggle" id="chatToggle" aria-label="Open chat">
+      <i class="bi bi-chat-dots"></i>
+    </button>
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        <span>Ayubowan! 👋</span>
+        <button class="close-btn" id="chatClose" aria-label="Close chat">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">
+          <div class="message-bubble bot">
+            Welcome to Loom & Lane! How can we help you today?
+          </div>
+        </div>
+        <div class="chat-message bot">
+          <div class="message-bubble bot">
+            Ask about our products, shipping, or anything else!
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-group">
+        <input type="text" id="chatInput" placeholder="Type your message..." />
+        <button id="chatSend" aria-label="Send message">
+          <i class="bi bi-send"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Modal Overlay -->
+  <div class="search-modal" id="searchModal">
+    <div class="search-modal-backdrop" id="searchModalBackdrop"></div>
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <div class="search-input-container">
+          <svg class="search-modal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="search" id="searchModalInput" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+          <button class="search-modal-close" id="searchModalClose" aria-label="Close search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="search-modal-body" id="searchModalResults">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+

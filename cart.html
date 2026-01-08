@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View and manage your shopping cart at Loom & Lane.">
+  <title>Shopping Cart - Loom & Lane</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/icons/favicon.ico">
+
+  <style>
+    /* Cart-Specific Styles */
+    .cart-table {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cart-table table {
+      margin-bottom: 0;
+    }
+
+    .cart-table thead {
+      background: var(--bg-secondary);
+    }
+
+    .cart-table thead th {
+      color: #212529;
+      font-weight: var(--font-weight-bold);
+      border: none;
+      padding: var(--spacing-md);
+    }
+
+    /* Ensure table headers are visible in dark mode */
+    [data-theme="dark"] .cart-table thead th {
+      color: #ffffff;
+    }
+
+    .cart-table tbody td {
+      vertical-align: middle;
+      padding: var(--spacing-md);
+      border-color: var(--bg-secondary);
+    }
+
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+
+    .cart-item-name {
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .cart-item-category {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-control input {
+      width: 60px;
+      text-align: center;
+      border: 1px solid var(--text-secondary);
+      border-radius: var(--radius-sm);
+      padding: 0.375rem;
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .quantity-control input:focus {
+      outline: none;
+      border-color: var(--color-secondary);
+    }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #DC3545;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      padding: 0.5rem;
+    }
+
+    .btn-remove:hover {
+      color: #C82333;
+      transform: scale(1.1);
+    }
+
+    .cart-summary {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 100px;
+    }
+
+    .cart-summary h4 {
+      margin-bottom: var(--spacing-lg);
+      color: var(--text-primary);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-sm) 0;
+      border-bottom: 1px solid var(--bg-secondary);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .summary-value {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-bold);
+      font-size: 1rem;
+    }
+
+    .summary-total {
+      margin-top: var(--spacing-md);
+      padding-top: var(--spacing-md);
+      border-top: 2px solid var(--color-secondary);
+    }
+
+    .summary-total .summary-label {
+      font-size: 1.25rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+    }
+
+    .summary-total .summary-value {
+      font-size: 1.5rem;
+      color: var(--color-secondary);
+    }
+
+    .free-shipping-badge {
+      background: linear-gradient(135deg, #28A745, #20C997);
+      color: white;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      text-align: center;
+      margin: var(--spacing-md) 0;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .shipping-progress {
+      margin: var(--spacing-md) 0;
+    }
+
+    .shipping-progress-bar {
+      height: 8px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .shipping-progress-fill {
+      height: 100%;
+      background: var(--gradient-gold);
+      transition: width var(--transition-normal);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: var(--spacing-xxl) 0;
+    }
+
+    .empty-cart-icon {
+      font-size: 5rem;
+      opacity: 0.3;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    /* Force black text for Cart Summary in light mode */
+    .cart-summary h4,
+    .cart-summary .summary-label,
+    .cart-summary .summary-value,
+    .cart-summary .text-secondary {
+      color: #000000 !important;
+    }
+
+    /* White text for Cart Summary in dark mode */
+    [data-theme='dark'] .cart-summary h4,
+    [data-theme='dark'] .cart-summary .summary-label,
+    [data-theme='dark'] .cart-summary .summary-value,
+    [data-theme='dark'] .cart-summary .text-secondary {
+      color: #ffffff !important;
+    }
+
+    @media (max-width: 991px) {
+      .cart-summary {
+        position: relative;
+        top: 0;
+        margin-top: var(--spacing-lg);
+      }
+
+      .cart-table {
+        overflow-x: auto;
+      }
+
+      .cart-item-image {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .cart-table table {
+        font-size: 0.875rem;
+      }
+
+      .cart-table thead {
+        display: none;
+      }
+
+      .cart-table tbody td {
+        display: block;
+        text-align: right;
+        padding: 0.5rem;
+        border: none;
+      }
+
+      .cart-table tbody td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+
+      .cart-table tbody tr {
+        border-bottom: 2px solid var(--bg-secondary);
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .cart-item-image {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="index.html">
+        <img src="../assets/icons/raphael-ai.jpeg" 
+             alt="Loom & Lane" 
+             class="logo-img"
+             style="height: 50px; width: auto; max-width: 200px; object-fit: contain;">
+        <span class="logo-text ms-2">Loom</span>
+        <span class="logo-ampersand">&</span>
+        <span class="logo-text">Lane</span>
+      </a>
+
+      <!-- Mobile Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Main Navigation Links -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="shop.html">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right Side: Search, Dark Mode, Cart -->
+        <div class="d-flex align-items-center gap-3">
+          <!-- Search Icon (Click to Open Modal) -->
+          <button class="search-trigger-btn" id="searchTrigger" aria-label="Open search">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+
+          <!-- Dark Mode Toggle -->
+          <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <!-- Cart Icon with Badge -->
+          <a href="cart.html" class="cart-icon" aria-label="Shopping cart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+              <path d="M3 6h18"></path>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="cart-badge"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="bg-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="mb-2">Shopping Cart</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Cart</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Content -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Empty Cart State -->
+      <div id="emptyCart" class="empty-cart" style="display: none;">
+        <div class="empty-cart-icon">🛒</div>
+        <h2>Your Cart is Empty</h2>
+        <p class="text-secondary mb-4">Looks like you haven't added any items to your cart yet.</p>
+        <a href="shop.html" class="btn btn-secondary btn-lg">Start Shopping</a>
+      </div>
+
+      <!-- Cart Items -->
+      <div id="cartContent" style="display: none;">
+        <div class="row">
+          
+          <!-- Cart Table -->
+          <div class="col-lg-7 order-lg-1">
+            <div class="cart-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Subtotal</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="cartTableBody">
+                  <!-- Cart items will be inserted here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between mt-4 flex-wrap gap-3">
+              <a href="shop.html" class="btn btn-outline">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+                Continue Shopping
+              </a>
+              <button class="btn btn-outline" onclick="CartPage.clearCart()" style="color: #DC3545; border-color: #DC3545;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+                Clear Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Cart Summary -->
+          <div class="col-lg-4 offset-lg-1 order-lg-2">
+            <div class="cart-summary">
+              <h4 class="small">Order Summary</h4>
+
+              <!-- Shipping Progress -->
+              <div id="shippingProgress" class="shipping-progress">
+                <p class="text-secondary mb-2 small" style="font-size: 0.875rem;">
+                  <span id="shippingMessage">Add <strong id="amountToFreeShipping">LKR 0</strong> more for free shipping!</span>
+                </p>
+                <div class="shipping-progress-bar">
+                  <div class="shipping-progress-fill" id="shippingProgressFill" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <!-- Summary Details -->
+              <div class="summary-row">
+                <span class="summary-label small">Subtotal</span>
+                <span class="summary-value small" id="summarySubtotal">LKR 0.00</span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label small">Tax (5%)</span>
+                <span class="summary-value small" id="summaryTax">LKR 0.00</span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label small">Shipping</span>
+                <span class="summary-value small" id="summaryShipping">LKR 0.00</span>
+              </div>
+
+              <div class="summary-row summary-total">
+                <span class="summary-label small">Total</span>
+                <span class="summary-value small" id="summaryTotal">LKR 0.00</span>
+              </div>
+
+              <!-- Free Shipping Badge -->
+              <div id="freeShippingBadge" style="display: none;">
+                <div class="free-shipping-badge">
+                  🎉 You've unlocked FREE shipping!
+                </div>
+              </div>
+
+              <!-- Checkout Button -->
+              <button class="btn btn-secondary w-100 mt-4 btn-lg" onclick="CartPage.proceedToCheckout()">
+                Proceed to Checkout
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-left: 5px;">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+              </button>
+
+              <!-- Security Badge -->
+              <div class="text-center mt-3">
+                <small class="text-secondary">
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
+                  </svg>
+                  Secure Checkout
+                </small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light pt-5 pb-3 mt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Brand & Description -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h3 class="mb-3" style="font-family: var(--font-heading); color: var(--color-secondary);">Loom & Lane</h3>
+          <p class="text-light" style="opacity: 0.8;">
+            Authentic Sri Lankan craftsmanship and artistry. Bringing the heritage of Ceylon to your home with handcrafted treasures.
+          </p>
+          <!-- Social Media Icons -->
+          <div class="d-flex gap-3 mt-3">
+            <a href="#" class="text-light" aria-label="Facebook" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Instagram" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Twitter" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-light" aria-label="Pinterest" style="font-size: 1.5rem; transition: color 0.3s;">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="index.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Home</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Shop</a>
+            </li>
+            <li class="mb-2">
+              <a href="about.html" class="text-light" style="opacity: 0.8; text-decoration: none;">About Us</a>
+            </li>
+            <li class="mb-2">
+              <a href="cart.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Cart</a>
+            </li>
+            <li class="mb-2">
+              <a href="contact.html" class="text-light" style="opacity: 0.8; text-decoration: none;">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Categories</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="shop.html?category=home-decor" class="text-light" style="opacity: 0.8; text-decoration: none;">Home Decor</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=wooden-crafts" class="text-light" style="opacity: 0.8; text-decoration: none;">Wooden Crafts</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=porcelain" class="text-light" style="opacity: 0.8; text-decoration: none;">Porcelain</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=flower-arrangements" class="text-light" style="opacity: 0.8; text-decoration: none;">Flower Arrangements</a>
+            </li>
+            <li class="mb-2">
+              <a href="shop.html?category=accessories" class="text-light" style="opacity: 0.8; text-decoration: none;">Accessories</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5 class="mb-3" style="color: var(--color-secondary);">Contact Us</h5>
+          <ul class="list-unstyled text-light" style="opacity: 0.8;">
+            <li class="mb-2">
+              <strong>Address:</strong><br>
+              No. 127, Galle Road<br>
+              Colombo 03, Sri Lanka
+            </li>
+            <li class="mb-2">
+              <strong>Phone:</strong><br>
+              +94 11 234 5678
+            </li>
+            <li class="mb-2">
+              <strong>Email:</strong><br>
+              info@loomandlane.lk
+            </li>
+            <li class="mb-2">
+              <strong>Hours:</strong><br>
+              Mon - Sat: 9:00 AM - 7:00 PM<br>
+              Sunday: 10:00 AM - 5:00 PM
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Bar -->
+      <hr class="my-4" style="border-color: rgba(212, 175, 55, 0.3);">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+          <p class="mb-0 text-light" style="opacity: 0.7;">
+            &copy; 2026 Loom & Lane. All rights reserved.
+          </p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <a href="#" class="text-light me-3" style="opacity: 0.7; text-decoration: none;">Privacy Policy</a>
+          <a href="#" class="text-light me-3" style="opacity: 0.7; text-decoration: none;">Terms of Service</a>
+          <a href="#" class="text-light" style="opacity: 0.7; text-decoration: none;">Shipping Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  
+  <!-- Core App JS -->
+  <script src="js/app.js"></script>
+
+  <!-- Page-Specific Script: Cart Management -->
+  <script>
+    /**
+     * Cart Page Manager (Rewritten to use CartManager)
+     * Handles cart display, quantity updates, and order summary
+     */
+    const CartPage = {
+      /**
+       * Initialize the cart page
+       */
+      init() {
+        console.log('Cart page initializing...');
+        
+        // Wait for CartManager to be ready
+        if (typeof CartManager === 'undefined') {
+          console.error('CartManager not found! Make sure app.js is loaded first.');
+          return;
+        }
+
+        // Set up event delegation for cart table
+        this.setupEventDelegation();
+        
+        // Initial render
+        this.renderCart();
+
+        console.log('Cart page initialized');
+      },
+
+      /**
+       * Setup event delegation for quantity changes and remove buttons
+       */
+      setupEventDelegation() {
+        const cartTableBody = document.getElementById('cartTableBody');
+        
+        if (!cartTableBody) {
+          console.error('Cart table body not found');
+          return;
+        }
+
+        // Single event listener for the entire table
+        cartTableBody.addEventListener('click', (e) => {
+          // Handle remove button clicks
+          if (e.target.closest('.btn-remove')) {
+            e.preventDefault();
+            const button = e.target.closest('.btn-remove');
+            const productId = Number(button.dataset.id);
+            this.handleRemove(productId);
+          }
+        });
+
+        // Handle quantity input changes
+        cartTableBody.addEventListener('change', (e) => {
+          if (e.target.classList.contains('quantity-input')) {
+            const input = e.target;
+            const productId = Number(input.dataset.id);
+            const newQuantity = Number(input.value);
+            this.handleQuantityChange(productId, newQuantity);
+          }
+        });
+      },
+
+      /**
+       * Render cart items and summary
+       */
+      renderCart() {
+        const cart = CartManager.getCart();
+        
+        console.log('Rendering cart with items:', cart);
+
+        if (cart.length === 0) {
+          this.showEmptyCart();
+          return;
+        }
+
+        this.showCartContent();
+        this.renderCartItems();
+        this.calculateTotals();
+      },
+
+      /**
+       * Show empty cart state
+       */
+      showEmptyCart() {
+        document.getElementById('emptyCart').style.display = 'block';
+        document.getElementById('cartContent').style.display = 'none';
+        
+        // Reset summary to zero
+        document.getElementById('summarySubtotal').textContent = 'LKR 0.00';
+        document.getElementById('summaryTax').textContent = 'LKR 0.00';
+        document.getElementById('summaryShipping').textContent = 'LKR 0.00';
+        document.getElementById('summaryTotal').textContent = 'LKR 0.00';
+      },
+
+      /**
+       * Show cart content
+       */
+      showCartContent() {
+        document.getElementById('emptyCart').style.display = 'none';
+        document.getElementById('cartContent').style.display = 'block';
+      },
+
+      /**
+       * Render cart items to table (Loop through CartManager.getCart())
+       */
+      renderCartItems() {
+        const tbody = document.getElementById('cartTableBody');
+        const cart = CartManager.getCart();
+        
+        if (!tbody) {
+          console.error('Cart table body element not found!');
+          return;
+        }
+        
+        tbody.innerHTML = '';
+        
+        console.log('Rendering', cart.length, 'cart items');
+
+        // Loop through cart items and generate HTML rows
+        cart.forEach(item => {
+          try {
+            const row = this.createCartRow(item);
+            tbody.appendChild(row);
+          } catch (error) {
+            console.error('Error creating cart row for item:', item, error);
+          }
+        });
+        
+        console.log('Cart items rendered successfully');
+      },
+
+      /**
+       * Create a cart row element
+       * Includes: Image, Name, Price (formatted), Quantity Input, Subtotal, Delete Button
+       */
+      createCartRow(item) {
+        const tr = document.createElement('tr');
+        
+        // Calculate subtotal (Price * Quantity)
+        const itemSubtotal = item.price * item.quantity;
+
+        tr.innerHTML = `
+          <td data-label="Product">
+            <div class="d-flex align-items-center gap-3">
+              <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+              <div>
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-category">${item.category}</div>
+              </div>
+            </div>
+          </td>
+          <td data-label="Price">
+            <strong>${formatCurrency(item.price)}</strong>
+          </td>
+          <td data-label="Quantity">
+            <div class="quantity-control">
+              <input 
+                type="number" 
+                class="quantity-input"
+                value="${item.quantity}" 
+                min="1" 
+                max="99"
+                data-id="${item.id}"
+                aria-label="Quantity for ${item.name}"
+              >
+            </div>
+          </td>
+          <td data-label="Subtotal">
+            <strong>${formatCurrency(itemSubtotal)}</strong>
+          </td>
+          <td data-label="">
+            <button 
+              class="btn-remove" 
+              data-id="${item.id}"
+              aria-label="Remove ${item.name}"
+              title="Remove item"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
+
+        return tr;
+      },
+
+      /**
+       * Handle quantity change
+       */
+      handleQuantityChange(productId, newQuantity) {
+        console.log(`Updating quantity for product ${productId} to ${newQuantity}`);
+        
+        if (isNaN(newQuantity) || newQuantity < 1) {
+          console.warn('Invalid quantity, re-rendering cart');
+          this.renderCart();
+          return;
+        }
+
+        // Call CartManager to update quantity
+        CartManager.updateQuantity(productId, newQuantity);
+
+        // Re-render cart
+        this.renderCart();
+      },
+
+      /**
+       * Handle remove item
+       */
+      handleRemove(productId) {
+        console.log(`Removing product ${productId} from cart`);
+        
+        // Find item for confirmation message
+        const cart = CartManager.getCart();
+        const item = cart.find(item => item.id === productId);
+        
+        if (item && confirm(`Remove "${item.name}" from cart?`)) {
+          // Call CartManager to remove item
+          CartManager.removeFromCart(productId);
+          
+          // Re-render cart
+          this.renderCart();
+        }
+      },
+
+      /**
+       * Calculate totals
+       * Subtotal: Sum of all (Price * Quantity)
+       * Tax: 5% of Subtotal
+       * Shipping: Flat 350.00 LKR, but 0 if cart is empty or subtotal >= 50000
+       * Total: Subtotal + Tax + Shipping
+       */
+      calculateTotals() {
+        const cart = CartManager.getCart();
+        
+        // Calculate subtotal (sum of all price * quantity)
+        const subtotal = cart.reduce((sum, item) => {
+          return sum + (item.price * item.quantity);
+        }, 0);
+        
+        // Calculate tax (5% of subtotal)
+        const tax = subtotal * 0.05;
+        
+        // Calculate shipping (350 LKR flat, but free if cart empty or subtotal >= 50000)
+        const FREE_SHIPPING_THRESHOLD = 50000;
+        const SHIPPING_COST = 350;
+        const shipping = (cart.length === 0 || subtotal >= FREE_SHIPPING_THRESHOLD) ? 0 : SHIPPING_COST;
+        const freeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
+        
+        // Calculate total
+        const total = subtotal + tax + shipping;
+        
+        // Store totals for other methods
+        this.totals = {
+          subtotal,
+          tax,
+          shipping,
+          total,
+          freeShipping
+        };
+        
+        // Update DOM elements
+        document.getElementById('summarySubtotal').textContent = formatCurrency(subtotal);
+        document.getElementById('summaryTax').textContent = formatCurrency(tax);
+        document.getElementById('summaryShipping').textContent = freeShipping || cart.length === 0 ? 'FREE' : formatCurrency(shipping);
+        document.getElementById('summaryTotal').textContent = formatCurrency(total);
+        
+        // Update shipping progress bar
+        this.updateShippingProgress(subtotal, freeShipping);
+        
+        console.log('Totals calculated:', this.totals);
+      },
+
+      /**
+       * Update shipping progress bar
+       */
+      updateShippingProgress(subtotal, freeShipping) {
+        const FREE_SHIPPING_THRESHOLD = 50000;
+        const progressFill = document.getElementById('shippingProgressFill');
+        const amountToFreeShipping = document.getElementById('amountToFreeShipping');
+        const freeShippingBadge = document.getElementById('freeShippingBadge');
+        const shippingProgress = document.getElementById('shippingProgress');
+
+        if (freeShipping) {
+          // Free shipping achieved
+          progressFill.style.width = '100%';
+          shippingProgress.style.display = 'none';
+          freeShippingBadge.style.display = 'block';
+        } else {
+          // Calculate progress
+          const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+          const progress = (subtotal / FREE_SHIPPING_THRESHOLD) * 100;
+          
+          progressFill.style.width = `${Math.min(progress, 100)}%`;
+          amountToFreeShipping.textContent = formatCurrency(remaining);
+          shippingProgress.style.display = 'block';
+          freeShippingBadge.style.display = 'none';
+        }
+      },
+
+      /**
+       * Clear entire cart
+       */
+      clearCart() {
+        const cart = CartManager.getCart();
+        
+        if (cart.length === 0) return;
+
+        if (confirm('Are you sure you want to clear your cart?')) {
+          CartManager.clearCart();
+          this.renderCart();
+        }
+      },
+
+      /**
+       * Proceed to checkout
+       */
+      proceedToCheckout() {
+        const cart = CartManager.getCart();
+        
+        if (cart.length === 0) {
+          showToast('Your cart is empty!', 'error');
+          return;
+        }
+
+        console.log('Proceeding to checkout with:', this.totals);
+        
+        // Redirect to checkout page
+        window.location.href = 'checkout.html';
+      }
+    };
+
+    // Initialize cart page when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => CartPage.init());
+    } else {
+      CartPage.init();
+    }
+  </script>
+
+  <!-- Search Modal Overlay -->
+  <div class="search-modal" id="searchModal">
+    <div class="search-modal-backdrop" id="searchModalBackdrop"></div>
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <div class="search-input-container">
+          <svg class="search-modal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="search" id="searchModalInput" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+          <button class="search-modal-close" id="searchModalClose" aria-label="Close search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="search-modal-body" id="searchModalResults">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
